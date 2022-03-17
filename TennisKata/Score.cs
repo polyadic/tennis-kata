@@ -9,7 +9,7 @@ namespace TennisKata
 
         public sealed partial record Forty(Player Player, Point OtherPlayerPoint) : Score;
 
-        public sealed partial record Deuce() : Score;
+        public sealed partial record Deuce : Score;
 
         public sealed partial record Advantage(Player Player) : Score;
 

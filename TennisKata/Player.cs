@@ -10,8 +10,8 @@ namespace TennisKata
                 playerOne: _ => new PlayerTwo() as Player,
                 playerTwo: _ => new PlayerOne());
 
-        public sealed partial record PlayerOne() : Player;
+        public sealed partial record PlayerOne : Player;
 
-        public sealed partial record PlayerTwo() : Player;
+        public sealed partial record PlayerTwo : Player;
     }
 }

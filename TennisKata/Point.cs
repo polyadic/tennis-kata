@@ -12,10 +12,10 @@ namespace TennisKata
                 fifteen: _ => Option.Some<Point>(new Thirty()),
                 thirty: _ => Option<Point>.None());
 
-        public sealed partial record Love() : Point;
+        public sealed partial record Love : Point;
 
-        public sealed partial record Fifteen() : Point;
+        public sealed partial record Fifteen : Point;
 
-        public sealed partial record Thirty() : Point;
+        public sealed partial record Thirty : Point;
     }
 }
