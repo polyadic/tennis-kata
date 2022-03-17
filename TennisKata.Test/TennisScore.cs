@@ -22,7 +22,8 @@ namespace TennisKata.Test
         [Property]
         public Property GivenAdvantageWhenAdvantagedPlayerWinsThenScoreIsCorrect(Player advantagedPlayer)
         {
-            var actual = Scoring.ScoreWhenAdvantage(new Score.Advantage(advantagedPlayer), advantagedPlayer);
+            var scoreWhenAdvantage = Scoring.ScoreWhenAdvantage(advantagedPlayer);
+            var actual = scoreWhenAdvantage(new Score.Advantage(advantagedPlayer));
 
             var expected = new Score.Game(advantagedPlayer);
             return (expected == actual).ToProperty();
@@ -31,7 +32,8 @@ namespace TennisKata.Test
         [Property]
         public Property GivenAdvantageWhenOtherPlayerWinsThenScoreIsCorrect(Player advantagedPlayer)
         {
-            var actual = Scoring.ScoreWhenAdvantage(new Score.Advantage(advantagedPlayer), Player.Other(advantagedPlayer));
+            var scoreWhenAdvantage = Scoring.ScoreWhenAdvantage(Player.Other(advantagedPlayer));
+            var actual = scoreWhenAdvantage(new Score.Advantage(advantagedPlayer));
 
             var expected = new Score.Deuce();
             return (expected == actual).ToProperty();
@@ -40,7 +42,8 @@ namespace TennisKata.Test
         [Property]
         public Property GivenPlayer40WhenPlayerWinsThenScoreIsCorrect(Score.Forty current)
         {
-            var actual = Scoring.ScoreWhenForty(current, current.Player);
+            var scoreWhenForty = Scoring.ScoreWhenForty(current.Player);
+            var actual = scoreWhenForty(current);
 
             var expected = new Score.Game(current.Player);
             return (expected == actual).ToProperty();
@@ -50,7 +53,8 @@ namespace TennisKata.Test
         public Property GivenPlayer40Other30WhenOtherWinsThenScoreIsCorrect(Score.Forty forty)
         {
             var current = forty with { OtherPlayerPoint = new Point.Thirty() };
-            var actual = Scoring.ScoreWhenForty(current, Player.Other(current.Player));
+            var scoreWhenForty = Scoring.ScoreWhenForty(Player.Other(current.Player));
+            var actual = scoreWhenForty(current);
 
             var expected = new Score.Deuce();
             return (expected == actual).ToProperty();
@@ -63,7 +67,8 @@ namespace TennisKata.Test
             return Prop.ForAll(opp, otherPlayerPoint =>
             {
                 var current = forty with { OtherPlayerPoint = otherPlayerPoint };
-                var actual = Scoring.ScoreWhenForty(current, Player.Other(current.Player));
+                var scoreWhenForty = Scoring.ScoreWhenForty(Player.Other(current.Player));
+                var actual = scoreWhenForty(current);
                 var expected = Point.Increment(current.OtherPlayerPoint).AndThen(point => current with { OtherPlayerPoint = point } as Score);
 
                 return (expected == actual).ToProperty();
